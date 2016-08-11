@@ -9,9 +9,11 @@ What decisions were made:
 
 REST API routes names have `/api/v{version}/...` prefix to ensure some flexibility in changing API versions (i.e., to switch API version is as simple as to create another Symfony bundle with APIs code and change version string in front-end).
 
-Routes naming convention `/api/v{version}/{requests-group}/{request-subgroup}` was accepted to ensure that features are separated into logical packages, e.g all CRUD operations for entities are on `/api/v0.1/entities/{entity-class}` routes, authorization operations on `/api/v0.1/auth/{operation}` routes and so on.
+Routes naming convention `/api/v{version}/{requests-group}/{request-subgroup}` was accepted to ensure that features are separated into logical packages, e.g all CRUD operations for entities are on `/api/v0.1/entities/{entity-class}` routes, authentication operations on `/api/v0.1/auth/{operation}` routes and so on.
 
 `RESTfulResponseGeneratorService` was created to ensure that later it may be possible to switch response format from JSON to other (xml or other). Also, it attaches status codes to APIs results, which can be helpful in future when there will be input values validation in back-end.
+
+Routing component was used in AngularJS front-end code to enable partial page loading (i.e. loading of parts of the pages without refreshing whole page).
 
 What to do next:
 
@@ -26,3 +28,4 @@ What to do next:
 9. [devops] Configure caching, so public parts of front-end could be transmited lightning fast.
 10. [front-end] Document existing and new code.
 11. [front-end, back-end] Add input values validation.
+12. [front-end] Routing can be switched to use HTML5 pushState standard.
