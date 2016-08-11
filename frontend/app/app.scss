@@ -1,0 +1,35 @@
+/* app css stylesheet */
+
+html {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+}
+
+.menu {
+  list-style: none;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+
+  li {
+     display: inline;
+  }
+
+  li:before {
+     content: "|";
+     padding-right: 0.3em;
+  }
+
+  li:nth-child(1):before {
+    content: "";
+    padding: 0;
+  }
+}
+
+body {
+  padding: 20px;
+}
+
+input[type='button'],
+input[type='submit'] {
+  padding: 10px 20px;
+}

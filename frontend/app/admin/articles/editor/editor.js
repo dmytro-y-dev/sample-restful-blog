@@ -14,12 +14,15 @@ angular.module('blog.admin.articles.editor', ['ngRoute', 'blog.config'])
 }])
 
 .controller('CreateArticleCtrl', ['$scope', '$http', '$location', 'blogConfig', function($scope, $http, $location, $blogConfig) {
-  $scope.articlePartialObject = {};
+  $scope.articlePartialObject = {
+    slug: '',
+    title: '',
+    content: '',
+    published: false
+  };
   $scope.mode = 'create';
 
   $scope.createArticle = function(articlePartialObject) {
-    console.log(articlePartialObject);
-
     $http({
       'method' : 'POST',
       'url' : $blogConfig.apiURL + '/articles',
@@ -63,6 +66,10 @@ angular.module('blog.admin.articles.editor', ['ngRoute', 'blog.config'])
     });
   };
 
+  /**
+   *
+   * @param articlePartialObject Partial Article entity
+   */
   $scope.updateArticle = function(articlePartialObject) {
     $http({
       'method' : 'PUT',

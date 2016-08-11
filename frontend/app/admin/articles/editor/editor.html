@@ -1,20 +1,24 @@
-<form novalidate class="article_editor">
-    <div>
-        <label for="article_title">Title:</label>
-        <input id="article_title" type="text" ng-model="articlePartialObject.title" />
-    </div>
-    <div>
-        <label for="article_slug">Slug:</label>
-        <input id="article_slug" type="text" ng-model="articlePartialObject.slug" />
-    </div>
-    <div>
-        <label for="article_content">Content:</label>
-        <textarea id="article_content" ng-model="articlePartialObject.content"></textarea>
-    </div>
-    <div>
-        <label for="article_published">Is published?</label>
-        <input type="checkbox" id="article_published" ng-model="articlePartialObject.published" />
-    </div>
-    <input ng-if="mode == 'create'" type="submit" ng-click="createArticle(articlePartialObject)" value="Create article" />
-    <input ng-if="mode == 'edit'" type="submit" ng-click="updateArticle(articlePartialObject)" value="Update article" />
-</form>
+<div class="article_editor">
+    <form novalidate>
+        <div class="control">
+            <label for="article_title">Title:</label>
+            <input id="article_title" type="text" ng-model="articlePartialObject.title" />
+        </div>
+        <div class="control">
+            <label for="article_slug">Slug:</label>
+            <input id="article_slug" type="text" ng-model="articlePartialObject.slug" />
+        </div>
+        <div class="control">
+            <label for="article_content">Content:</label>
+            <textarea id="article_content" ng-model="articlePartialObject.content"></textarea>
+        </div>
+        <div class="control">
+            <input type="checkbox" id="article_published" ng-model="articlePartialObject.published" />
+            <label for="article_published">Is published?</label>
+        </div>
+        <div class="control actions">
+            <input ng-if="mode == 'create'" type="button" ng-click="createArticle(articlePartialObject)" value="Create article" />
+            <input ng-if="mode == 'edit'" type="button" ng-click="updateArticle(articlePartialObject)" value="Update article" />
+        </div>
+    </form>
+</div>

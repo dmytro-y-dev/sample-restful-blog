@@ -1,0 +1,49 @@
+.articles_list {
+  .articles_list_item {
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    margin: 10px 0;
+    padding: 20px;
+  }
+}
+
+.articles_list_item {
+  .title {
+    font-weight: 700;
+  }
+
+  .dates {
+    padding: 20px 0;
+  }
+
+  .content {
+    padding: 20px 0 40px 0;
+    white-space: pre-line;
+  }
+
+  .actions {
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 700px) {
+  .articles_list_item {
+    .dates {
+      .updated_on {
+        float: left;
+      }
+
+      .created_on {
+        float: right;
+      }
+    }
+
+    .content {
+      clear: both;
+    }
+
+    .actions {
+      float: right;
+    }
+  }
+}
