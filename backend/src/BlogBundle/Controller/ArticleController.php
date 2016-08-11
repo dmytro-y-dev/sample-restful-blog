@@ -62,7 +62,7 @@ class ArticleController extends FOSRestController
         $article->setSlug($articlePartialObject['slug']);
         $article->setTitle($articlePartialObject['title']);
         $article->setContent($articlePartialObject['content']);
-        $article->setUpdatedOn(null);
+        $article->setUpdatedOn(new \DateTime());
         $article->setCreatedOn(new \DateTime());
         $article->setPublished($articlePartialObject['published']);
 
