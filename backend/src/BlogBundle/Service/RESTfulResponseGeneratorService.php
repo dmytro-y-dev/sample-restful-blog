@@ -2,10 +2,22 @@
 
 namespace BlogBundle\Service;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class RESTfulResponseGeneratorService
 {
+    /* @var Serializer */
+    private $serializer;
+
+    public function __construct()
+    {
+        $this->serializer = new Serializer(array(new ObjectNormalizer()), array(new JsonEncoder()));
+    }
+
     /**
      * Generate response for REST controller methods.
      *
@@ -17,12 +29,28 @@ class RESTfulResponseGeneratorService
      */
     public function generateResponse($status, $description = '', $data = '')
     {
-        return new JsonResponse(array(
+        // $serializer doesn't know how to perform correctly on arrays. Let's help him.
+
+        if (is_array($data)) {
+            foreach ($data as &$item) {
+                $item = $this->serializer->normalize($item, 'json');
+            }
+        }
+
+        // Prepare response data
+
+        $responseData = array(
             'status' => array(
                 'result' => $status,
                 'description' => $description
             ),
             'data' => $data
-        ));
+        );
+
+        $serializedData = $this->serializer->serialize($responseData, 'json');
+
+        // Finally, generate response
+
+        return new Response($serializedData);
     }
 }

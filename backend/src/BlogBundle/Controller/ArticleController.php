@@ -6,9 +6,12 @@ use BlogBundle\Entity\Article;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
+use FOS\RestBundle\Controller\Annotations\RequestParam;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class ArticleController extends FOSRestController
 {
@@ -24,6 +27,7 @@ class ArticleController extends FOSRestController
      * @QueryParam(name="sort_field", default="0", description="By what field to sort articles. Possible values are 'title', 'created_on', 'updated_on'.")
      * @QueryParam(name="sort_order", default="asc", description="Sort order. Possible values are 'asc', 'desc'.")
      * @QueryParam(name="only_published", default="true", description="If true, return only published articles. If false, return all articles. Works only when user has Admin role.")
+     * @ApiDoc()
      */
     public function getArticlesAction(ParamFetcherInterface $paramFetcher)
     {
@@ -44,7 +48,8 @@ class ArticleController extends FOSRestController
      *
      * @return JSON stringified object with request result.
      *
-     * @QueryParam(name="article", description="JSON stringified partial Article entity.")
+     * @RequestParam(name="article", description="JSON stringified partial Article entity.")
+     * @ApiDoc()
      */
     public function postArticlesAction(ParamFetcherInterface $paramFetcher)
     {
@@ -55,10 +60,12 @@ class ArticleController extends FOSRestController
         $article->setTitle($articlePartialObject['title']);
         $article->setContent($articlePartialObject['content']);
         $article->setUpdatedOn(null);
-        $article->setCreateOn(new \DateTime());
+        $article->setCreatedOn(new \DateTime());
         $article->setPublished($articlePartialObject['published']);
 
-        $this->getDoctrine()->getManager()->persist($article);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($article);
+        $em->flush();
 
         return $this->get('blog.response_generator')
             ->generateResponse('ok')
@@ -98,12 +105,16 @@ class ArticleController extends FOSRestController
      *
      * @return JSON stringified object with request result.
      *
-     * @QueryParam(name="article", description="JSON stringified Article entity.")
+     * @RequestParam(name="article", description="JSON stringified Article entity.")
+     * @ApiDoc()
      */
     public function putArticleAction($slug, ParamFetcherInterface $paramFetcher)
     {
-        $article = $this->getDoctrine()
-            ->getRepository('BlogBundle:Article')
+        $em = $this->getDoctrine()->getManager();
+
+        // Check if article if requested slug exists
+
+        $article = $em->getRepository('BlogBundle:Article')
             ->findOneBySlug($slug)
         ;
 
@@ -113,7 +124,17 @@ class ArticleController extends FOSRestController
             ;
         }
 
-        // TODO: Update article
+        // Update article
+
+        $articlePartialObject = json_decode($paramFetcher->get('article'), true);
+
+        $article->setSlug($articlePartialObject['slug']);
+        $article->setTitle($articlePartialObject['title']);
+        $article->setContent($articlePartialObject['content']);
+        $article->setUpdatedOn(new \DateTime());
+        $article->setPublished($articlePartialObject['published']);
+
+        $em->flush();
 
         return $this->get('blog.response_generator')
             ->generateResponse('ok')
@@ -129,10 +150,11 @@ class ArticleController extends FOSRestController
      */
     public function deleteArticleAction($slug)
     {
-        $em = $this->getDoctrine();
-
-        $article = $em->getReference('BlogBundle:Article', array('slug' => $slug));
-        $em->remove($article);
+        $em = $this->getDoctrine()->getManager();
+        $em->createQuery('DELETE FROM BlogBundle:Article a WHERE a.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->execute();
+        ;
 
         return $this->get('blog.response_generator')
             ->generateResponse('ok')
