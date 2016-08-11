@@ -1,0 +1,12 @@
+<div class="articles_list">
+    <div class="articles_list_item" ng-repeat="article in articles">
+        <div class="title">{{ article.title }}</div>
+        <div class="content">{{ article.content }}</div>
+        <div class="updated_on">Last update on: {{ article.updatedOn.timestamp | date:'yyyy-MM-dd HH:mm:ss Z' }}</div>
+        <div class="created_on">Created on: {{ article.createdOn.timestamp }}</div>
+        <div class="actions">
+            <input type="button" ng-click="editArticle(article.slug)" value="Edit" />
+            <input type="button" ng-click="deleteArticle(article.slug)" value="Delete" />
+        </div>
+    </div>
+</div>

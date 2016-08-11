@@ -1,8 +1,8 @@
 'use strict';
 
-describe('myApp.view1 module', function() {
+describe('blog.admin.articles.editor module', function() {
 
-  beforeEach(module('myApp.view1'));
+  beforeEach(module('blog.admin.articles.editor'));
 
   describe('view1 controller', function(){
 
