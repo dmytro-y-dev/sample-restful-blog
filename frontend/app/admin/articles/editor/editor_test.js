@@ -53,6 +53,7 @@ describe('blog.admin.articles.editor module', function() {
     it('should have proper http request for article fetching', inject(function($rootScope, blogConfig, $controller) {
       var httpMock = function(request) {
         // getArticle is called on controller initialization, so we must skip it.
+        // To avoid this, consider moving HTTP requests to separate service.
 
         if (request.url.indexOf(routeParams.slug)) {
           return { then: function(a, b) {} };
@@ -73,6 +74,7 @@ describe('blog.admin.articles.editor module', function() {
     it('should have proper http request for article update', inject(function($rootScope, blogConfig, $controller) {
       var httpMock = function(request) {
         // getArticle is called on controller initialization, so we must skip it.
+        // To avoid this, consider moving HTTP requests to separate service.
 
         if (request.url.indexOf(routeParams.slug)) {
           return { then: function(a, b) {} };
