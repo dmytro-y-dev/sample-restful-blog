@@ -1,6 +1,6 @@
 What decisions were made:
 
-1. FOSRestBundle for Symfony3 was used to simplify RESTful API routes generation.
+1. FOSRestBundle for Symfony3 was used to simplify RESTful API routes generation. I used standard RESTful APIs routes, so other people could understand easier what my code does (https://en.wikipedia.org/wiki/Representational_state_transfer#Relationship_between_URL_and_HTTP_Methods).
 2. PHPUnit was used for unit-testing back-end code.
 3. ArticleController was covered with functional tests to ensure that RESTful API works properly.
 4. AngularJS 1.5 was used for front-end part, because I am the best familiar with it and it helps to write application's code in well separated manner, e.g. with controllers, DIC, services. Also it has good integration with Jasmine unit testing framework that can help to ensure code's stable work.
