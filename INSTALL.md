@@ -12,6 +12,6 @@ Installation steps:
 9. Set back-end's API base url in `app/config/config.js`. Ensure that both frontend and backend are located on same domain, so AJAX requests won't break (http://stackoverflow.com/questions/15005500/loading-cross-domain-html-page-with-ajax/17299796#17299796).
 10. Run `npm test` to unit test front-end.
 
-Or if you are using Windows. You can run `scripts/install-dependencies.bat` to install dependencies for you. It is interactive and will ask you details for parameters.yml and open config.js in notepad to change backend API base url.
+Or, if you are using Windows, you can run `scripts/install-dependencies.bat` to update dependencies automatically. Script is interactive and will ask you details for parameters.yml and open config.js in notepad to change back-end's API base url.
 
 `http://localhost/simple-blog-task/frontend/app/` is entry point for frontend, if you cloned this project into your `localhost` domain root folder.
