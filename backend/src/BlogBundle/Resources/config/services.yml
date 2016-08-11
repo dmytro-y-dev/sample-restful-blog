@@ -1,2 +1,3 @@
 services:
-    # skip
+    blog.response_generator:
+      class: RESTfulResponseGeneratorService
