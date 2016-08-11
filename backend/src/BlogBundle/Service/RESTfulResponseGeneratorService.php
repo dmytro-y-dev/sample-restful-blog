@@ -2,6 +2,8 @@
 
 namespace BlogBundle\Service;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 class RESTfulResponseGeneratorService
 {
     /**

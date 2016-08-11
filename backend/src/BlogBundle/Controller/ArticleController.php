@@ -2,7 +2,7 @@
 
 namespace BlogBundle\Controller;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
+use BlogBundle\Entity\Article;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
@@ -44,13 +44,21 @@ class ArticleController extends FOSRestController
      *
      * @return JSON stringified object with request result.
      *
-     * @QueryParam(name="article", description="JSON stringified Article entity.")
+     * @QueryParam(name="article", description="JSON stringified partial Article entity.")
      */
     public function postArticlesAction(ParamFetcherInterface $paramFetcher)
     {
-        //$article =
+        $articlePartialObject = json_decode($paramFetcher->get('article'), true);
 
-        // TODO: Persist article
+        $article = new Article();
+        $article->setSlug($articlePartialObject['slug']);
+        $article->setTitle($articlePartialObject['title']);
+        $article->setContent($articlePartialObject['content']);
+        $article->setUpdatedOn(null);
+        $article->setCreateOn(new \DateTime());
+        $article->setPublished($articlePartialObject['published']);
+
+        $this->getDoctrine()->getManager()->persist($article);
 
         return $this->get('blog.response_generator')
             ->generateResponse('ok')

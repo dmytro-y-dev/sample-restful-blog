@@ -45,7 +45,7 @@ class Article
     /**
      * @var string
      *
-     * @ORM\Column(name="updated_on", type="datetime")
+     * @ORM\Column(name="updated_on", nullable=true, type="datetime")
      */
     private $updatedOn;
 
