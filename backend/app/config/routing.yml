@@ -1,0 +1,14 @@
+blog.rest.articles:
+    type:     rest
+    resource: BlogBundle\Controller\ArticleController
+    prefix:   /api/v0.1/
+
+blog.rest.tags:
+    type:     rest
+    resource: BlogBundle\Controller\TagController
+    prefix:   /api/v0.1/
+
+blog.rest.auth:
+    type:     annotation
+    resource: BlogBundle\Controller\AuthController
+    prefix:   /api/v0.1/
