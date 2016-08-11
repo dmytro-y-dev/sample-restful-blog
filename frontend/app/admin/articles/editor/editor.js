@@ -67,8 +67,9 @@ angular.module('blog.admin.articles.editor', ['ngRoute', 'blog.config'])
   };
 
   /**
+   * Update article on web server.
    *
-   * @param articlePartialObject Partial Article entity
+   * @param articlePartialObject Article entity with partially filled fields
    */
   $scope.updateArticle = function(articlePartialObject) {
     $http({
