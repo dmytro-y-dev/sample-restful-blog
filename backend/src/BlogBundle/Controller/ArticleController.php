@@ -31,6 +31,9 @@ class ArticleController extends FOSRestController
      */
     public function getArticlesAction(ParamFetcherInterface $paramFetcher)
     {
+        // Query parameters are NOT implemented!
+        // Function which uses query parameters must be implemented in repository class.
+
         $articles = $this->getDoctrine()
             ->getRepository('BlogBundle:Article')
             ->findAll()

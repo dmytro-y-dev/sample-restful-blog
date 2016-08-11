@@ -63,6 +63,12 @@ class Article
      */
     private $published;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="articles")
+     * @ORM\JoinTable(name="articles_tags")
+     */
+    private $tags;
+
 
     /**
      * Get id
@@ -217,5 +223,45 @@ class Article
     {
         return $this->published;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Add tag
+     *
+     * @param \BlogBundle\Entity\Tag $tag
+     *
+     * @return Article
+     */
+    public function addTag(\BlogBundle\Entity\Tag $tag)
+    {
+        $this->tags[] = $tag;
+
+        return $this;
+    }
+
+    /**
+     * Remove tag
+     *
+     * @param \BlogBundle\Entity\Tag $tag
+     */
+    public function removeTag(\BlogBundle\Entity\Tag $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+}
